@@ -1,21 +1,33 @@
+<?php include "include/header.php"?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <div class="col">
     <h2>Seleccione o arrastre su imagen aqui:</h2>
-    <form action="val_imagen.php" class="dropzone" id="my-great-drpozone" enctype="multipart/form-data" name="file">
+    <form action="val_imagen.php" method="post" class="dropzone" enctype="multipart/form-data" name="file">
         <div class="fallback">
             <input type="file" name="file" multiple REQUIRED>
         </div>
         <br>
+        <button type="submit" name="agregar" class="btn btn-primary">Aceptar</button>
     </form>
-    <button type="submit" name="agregar" class="btn btn-primary">Aceptar</button>
-</div>
-</body>
-</html>
+    <table class="table">
+        <thead>
+          <tr>
+            <th>Imagen</th>
+          </tr> 
+        </thead>
+
+        <tbody>
+            <?php
+            $query = "SELECT * FROM imagenes";
+            $resultado = mysqli_query($con,$query);
+
+            while($row = mysqli_fetch_array($resultado)){?>
+
+                <tr>
+                <td><?php echo "<img height='70px' width='60px' src='fotos/".$row['imagen']."'>";?></td>
+                </tr>
+
+            <?php } ?>
+        </tbody>
+      </table>
+
+    <?php include "include/footer.php"?>
